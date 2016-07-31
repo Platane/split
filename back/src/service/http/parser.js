@@ -12,7 +12,7 @@ export const createUrlParser = ( verb, route ) => {
 
                 names.push( key.slice(1) )
 
-                return '([\\w_-]+)'
+                return '([\\w-]+)'
 
             } else
 
@@ -20,7 +20,8 @@ export const createUrlParser = ( verb, route ) => {
         })
         .join('\\/')
 
-    const rg = new RegExp( expr, 'g' )
+
+    const rg = new RegExp( '^\/?' + expr + '\/?$' )
 
     return request => {
 
@@ -33,6 +34,8 @@ export const createUrlParser = ( verb, route ) => {
 
         if ( !m )
             return
+
+            console.log(m, expr)
 
         const params = {}
 

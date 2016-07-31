@@ -8,6 +8,8 @@ describe('room', function(){
         post({ pathname: 'room', data: { name: 'frank' } })
             .then( res => {
 
+                this.roomId = res.room.id
+
                 expect( res.room )
                     .toContain({ name: 'frank' })
                     .toContainKey( 'id' )
@@ -17,7 +19,17 @@ describe('room', function(){
             .catch( done )
     })
 
-    xit('should get the saved roon', function( done ){
+    it('should get the saved roon', function( done ){
 
+        get({ pathname: `room/${ this.roomId }` })
+            .then( res => {
+
+                expect( res.room )
+                    .toContain({ name   : 'frank' })
+                    .toContain({ id     : this.roomId })
+
+                done()
+            })
+            .catch( done )
     })
 })

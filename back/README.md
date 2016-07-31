@@ -20,15 +20,18 @@ user : {
 
 expense : {
     title,
-    amount,
     currency,
     date,
     from : <user id>,
-    to   : <user id>[],
 
     pic,
     detail,
     proof,
+}
+
+line : {
+    amount,
+    to
 }
 
 ```
