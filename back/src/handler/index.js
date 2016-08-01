@@ -1,6 +1,7 @@
 
 const handlers = [
-    require('./room')
+    require('./room'),
+    require('./user'),
 ]
 
 

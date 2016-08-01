@@ -19,7 +19,7 @@ describe('room', function(){
             .catch( done )
     })
 
-    it('should get the saved roon', function( done ){
+    it('should get the saved room', function( done ){
 
         get({ pathname: `room/${ this.roomId }` })
             .then( res => {

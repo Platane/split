@@ -7,27 +7,22 @@ export const insert = ( ds, element ) =>
 
 export const collect = {
 
-    by_id : ( ds, id ) =>
-        new Promise( (resolve, reject) =>
-            ds.get(
-                ds.key([ 'Room', +id ]),
-                ( err, entity ) =>
-                    err
-                        ? reject( err )
-                        : resolve( { ...entity.data, id : entity.key.id } )
-            )
-        )
-    ,
+    by_id : ( ds, id ) => {
 
-    by_name : ( ds, pattern ) =>
-        Promise.resolve()
+        let room
+        let users
 
-    // by_name : ( ds, pattern ) =>
-    //     new Promise( (resolve, reject) => {
-    //
-    //         const query = ds.createQuery('Room')
-    //
-    //         ds.get( ds.key([ 'Room', id ]), (err, entity) => err ? reject( err ) : resolve( entity ) )
-    //     })
-    // ,
+        return Promise.all([
+
+            c.get( ds, 'Room', id )
+                .then( x => room = x )
+                
+            ,
+
+            c.getChildren( ds, 'Room', id, 'User' )
+                .then( x => users = x )
+
+        ])
+            .then(() => ({ ...room, users }) )
+    }
 }

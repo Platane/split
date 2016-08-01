@@ -17,3 +17,38 @@ export const insert = ( ds, key, data ) =>
             }
         )
     )
+
+
+
+const keyToId = ({ data, key }) =>
+    ({
+        ...data,
+        id : key.id,
+    })
+
+export const get = ( ds, ...path ) =>
+    new Promise( (resolve, reject) =>
+        ds.get(
+            ds.key( path ),
+            ( err, entity ) =>
+                err
+                    ? reject( err )
+                    : resolve( entity && keyToId( entity ) )
+        )
+    )
+
+export const getChildren = ( ds, ...path ) =>
+    new Promise( (resolve, reject) =>
+
+        ds
+            .createQuery( path[ path.length -1 ] )
+
+            .hasAncestor( ds.key( path.slice( 0, -1 ) ) )
+
+            .run( ( err, entities, info ) =>
+
+                err
+                    ? reject( err )
+                    : resolve( entities.map( keyToId ) )
+            )
+    )
