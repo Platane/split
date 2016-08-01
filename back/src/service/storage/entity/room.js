@@ -8,10 +8,14 @@ export const insert = ( ds, element ) =>
 export const collect = {
 
     by_id : ( ds, id ) =>
-        console.log('yolo') ||
         new Promise( (resolve, reject) =>
-            console.log( ds.key([ 'Room', id ]) ) ||
-            ds.get( ds.key([ 'Room', id ]), (err, entity) => err ? reject( err ) : resolve( entity ) )
+            ds.get(
+                ds.key([ 'Room', +id ]),
+                ( err, entity ) =>
+                    err
+                        ? reject( err )
+                        : resolve( { ...entity.data, id : entity.key.id } )
+            )
         )
     ,
 

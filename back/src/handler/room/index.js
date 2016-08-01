@@ -6,7 +6,7 @@ module.exports = ({ storage, http }) => {
     http.get('room/:room_id', ({ params }) =>
 
         collect.by_id( storage.datastore, params.room_id )
-            .then( room => console.log( room ) || ({ room }) )
+            .then( room => ({ room }) )
 
     )
 

@@ -35,8 +35,6 @@ export const createUrlParser = ( verb, route ) => {
         if ( !m )
             return
 
-            console.log(m, expr)
-
         const params = {}
 
         names.forEach( (name,i) => params[ name ] = m[ i+1 ] )

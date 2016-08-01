@@ -11,7 +11,7 @@ export const insert = ( ds, key, data ) =>
                 if ( err )
                     return reject( err )
 
-                data.id = key
+                data.id = key.id
 
                 resolve( data )
             }
