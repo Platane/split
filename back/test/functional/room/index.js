@@ -3,9 +3,9 @@ import expect       from 'expect'
 
 describe('room', function(){
 
-    it('should save a room', function( done ){
+    it('should save a room', function( ){
 
-        post({ pathname: 'room', data: { name: 'frank' } })
+        return post({ pathname: 'room', data: { name: 'frank' } })
             .then( res => {
 
                 this.roomId = res.room.id
@@ -14,22 +14,18 @@ describe('room', function(){
                     .toContain({ name: 'frank' })
                     .toContainKey( 'id' )
 
-                done()
             })
-            .catch( done )
     })
 
-    it('should get the saved room', function( done ){
+    it('should get the saved room', function( ){
 
-        get({ pathname: `room/${ this.roomId }` })
+        return get({ pathname: `room/${ this.roomId }` })
             .then( res => {
 
                 expect( res.room )
                     .toContain({ name   : 'frank' })
                     .toContain({ id     : this.roomId })
 
-                done()
             })
-            .catch( done )
     })
 })

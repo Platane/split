@@ -3,19 +3,16 @@ import expect       from 'expect'
 
 describe('user', function(){
 
-    beforeEach( function( done ){
+    beforeEach( function( ){
 
-        post({ pathname: 'room', data: { name: 'frank' } })
+        return post({ pathname: 'room', data: { name: 'frank' } })
 
-            .then( res => {
-                this.roomId = res.room.id
-                done()
-            })
+            .then( res => this.roomId = res.room.id )
     })
 
-    it('should add an user', function( done ){
+    it('should add an user', function( ){
 
-        post({ pathname: `room/${ this.roomId }/user`, data: { name: 'frank' } })
+        return post({ pathname: `room/${ this.roomId }/user`, data: { name: 'frank' } })
 
             .then( res => {
 
@@ -23,14 +20,12 @@ describe('user', function(){
                     .toContain({ name: 'frank' })
                     .toContainKey( 'id' )
 
-                done()
             })
-            .catch( done )
     })
 
-    it('should have the user in the room ( in the room route )', function( done ){
+    it('should have the user in the room ( in the room route )', function( ){
 
-        post({ pathname: `room/${ this.roomId }/user`, data: { name: 'frank' } })
+        return post({ pathname: `room/${ this.roomId }/user`, data: { name: 'frank' } })
 
             .then( () => get({ pathname: `room/${ this.roomId }` }) )
 
@@ -43,8 +38,6 @@ describe('user', function(){
                     .toContain({ name: 'frank' })
                     .toContainKey('id')
 
-                done()
             })
-            .catch( done )
     })
 })

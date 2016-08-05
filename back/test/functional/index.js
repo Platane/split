@@ -4,22 +4,20 @@ import defaultConfig    from '../../src/config'
 
 describe('functionnal', function(){
 
-    beforeEach(function( done ){
+    beforeEach(function( ){
 
-        createServer({ ...defaultConfig })
+        return createServer({ ...defaultConfig })
             .then( services => {
 
                 this.services = services
 
-                done()
             })
 
     })
 
-    afterEach(function( done ){
+    afterEach(function( ){
 
-        this.services.destroy()
-            .then( services => done() )
+        return this.services.destroy()
 
     })
 
