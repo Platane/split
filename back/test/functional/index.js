@@ -21,8 +21,12 @@ describe('functionnal', function(){
 
     })
 
+
     require('./room')
 
     require('./user')
+
+    require('./expense')
+
 
 })

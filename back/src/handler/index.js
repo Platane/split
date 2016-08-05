@@ -2,6 +2,7 @@
 const handlers = [
     require('./room'),
     require('./user'),
+    require('./expense'),
 ]
 
 

@@ -1,43 +1,46 @@
-import {get, post}  from '../../utils/request'
-import expect       from 'expect'
+import {get, post}      from '../../utils/request'
+import * as bootstrap   from '../../utils/bootstrap'
+import expect           from 'expect'
 
 describe('user', function(){
 
-    beforeEach( function( ){
+    bootstrap.room()
 
-        return post({ pathname: 'room', data: { name: 'frank' } })
+    describe('add an user', function(){
 
-            .then( res => this.roomId = res.room.id )
-    })
+        it('should return the user', function( ){
 
-    it('should add an user', function( ){
+            const user= { name: 'frank' }
 
-        return post({ pathname: `room/${ this.roomId }/user`, data: { name: 'frank' } })
+            return post({ pathname: `room/${ this.room.id }/user`, data: user })
 
             .then( res => {
 
                 expect( res.user )
-                    .toContain({ name: 'frank' })
+                    .toContain( user )
                     .toContainKey( 'id' )
 
             })
-    })
+        })
 
-    it('should have the user in the room ( in the room route )', function( ){
+        it('should have the user in the room ( with the room route )', function( ){
 
-        return post({ pathname: `room/${ this.roomId }/user`, data: { name: 'frank' } })
+            const user= { name: 'frank' }
 
-            .then( () => get({ pathname: `room/${ this.roomId }` }) )
+            return post({ pathname: `room/${ this.room.id }/user`, data: user })
 
-            .then( res => {
+                .then( () => get({ pathname: `room/${ this.room.id }` }) )
 
-                expect( res.room ).toContainKey( 'users' )
-                expect( res.room.users.length ).toBe( 1 )
+                .then( res => {
 
-                expect( res.room.users[ 0 ] )
-                    .toContain({ name: 'frank' })
-                    .toContainKey('id')
+                    expect( res.room ).toContainKey( 'users' )
+                    expect( res.room.users.length ).toBe( 1 )
 
-            })
+                    expect( res.room.users[ 0 ] )
+                        .toContain( user )
+                        .toContainKey( 'id' )
+
+                })
+        })
     })
 })

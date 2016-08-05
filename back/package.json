@@ -21,6 +21,6 @@
 
         "build"                     : "rm -rf lib && babel --out-dir lib --ignore node_modules/**/*.js,script/*.js ./src",
 
-        "test"                      : "mocha --compilers js:babel-register ./test/index.js"
+        "test"                      : "mocha --compilers js:babel-register --timeout 5000 ./test/index.js"
     }
 }

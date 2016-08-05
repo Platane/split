@@ -11,18 +11,24 @@ export const collect = {
 
         let room
         let users
+        let expenses
 
         return Promise.all([
 
             c.get( ds, 'Room', id )
                 .then( x => room = x )
-                
+
             ,
 
             c.getChildren( ds, 'Room', id, 'User' )
                 .then( x => users = x )
 
+            ,
+
+            c.getChildren( ds, 'Room', id, 'Expense' )
+                .then( x => expenses = x )
+
         ])
-            .then(() => ({ ...room, users }) )
+            .then(() => ({ ...room, users, expenses }) )
     }
 }

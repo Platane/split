@@ -59,3 +59,6 @@ export const get = options =>
 
 export const post = options =>
     request({ ...options, method:'POST' })
+
+export const del = options =>
+    request({ ...options, method:'DEL' })

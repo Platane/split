@@ -1,31 +1,37 @@
-import {get, post}  from '../../utils/request'
-import expect       from 'expect'
+import {get, post}      from '../../utils/request'
+import * as bootstrap   from '../../utils/bootstrap'
+import expect           from 'expect'
 
 describe('room', function(){
 
-    it('should save a room', function( ){
+    describe('add a room', function(){
 
-        return post({ pathname: 'room', data: { name: 'frank' } })
-            .then( res => {
+        it('should return the room', function( ){
 
-                this.roomId = res.room.id
+            return post({ pathname: 'room', data: { name: 'frank' } })
+                .then( res =>
 
-                expect( res.room )
-                    .toContain({ name: 'frank' })
-                    .toContainKey( 'id' )
+                    expect( res.room )
+                        .toContain({ name: 'frank' })
+                        .toContainKey( 'id' )
 
-            })
+                )
+        })
     })
 
-    it('should get the saved room', function( ){
+    describe('get a room', function(){
 
-        return get({ pathname: `room/${ this.roomId }` })
-            .then( res => {
+        bootstrap.room()
 
-                expect( res.room )
-                    .toContain({ name   : 'frank' })
-                    .toContain({ id     : this.roomId })
+        it('should return the room', function( ){
 
-            })
+            return get({ pathname: `room/${ this.room.id }` })
+                .then( res =>
+
+                    expect( res.room )
+                        .toContainKeys([ 'name', 'id' ])
+
+                )
+        })
     })
 })
