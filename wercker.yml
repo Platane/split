@@ -33,7 +33,7 @@ back-build:
             code: |
                 mv ./back/lib ./lib
                 mv ./back/package.json ./package.json
-                ls -A1 | grep -v 'lib\|package.json\|wercker.yml' | xargs rm -rfv
+                ls -A1 | grep -v 'lib\|package.json\|wercker.yml' | xargs rm -rf
                 npm install --quiet --production && npm list --depth 0  --quiet
 
 
