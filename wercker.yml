@@ -72,6 +72,8 @@ back-push-container:
 
 back-deploy:
 
+    box: debian
+
     steps:
 
         - script:
