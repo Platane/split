@@ -68,3 +68,34 @@ back-push-container:
             tag: $IMAGE_TAG
             working-dir: /pipeline/source
             cmd: npm run start
+
+
+back-deploy:
+
+    steps:
+
+        - script:
+            name: image tag
+            code: |
+                export IMAGE_TAG=$(cat image_tag)
+                echo $IMAGE_TAG
+
+        - add-to-known_hosts:
+            hostname: 104.197.252.129
+
+        - script:
+            name: create identity file
+            code: |
+                echo $SSH_PRIVATE > ./key
+
+        - add-ssh-key:
+            keyname: SSH
+
+        - script:
+            name: kill docker container
+            code: ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no 104.197.252.129 docker rm -f $(docker ps -a -q) 2> /dev/null
+
+        - script:
+            name: clean up identity file
+            code: |
+                rm ./key
