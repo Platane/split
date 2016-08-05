@@ -1,0 +1,69 @@
+
+box: node:6-slim
+
+back-build:
+    steps:
+
+        - script:
+            name: npm install
+            code: |
+                cd back
+                env NODE_ENV=dev npm install --quiet && npm list --depth 0  --quiet
+
+        - script:
+            name: print outdated package
+            code: |
+                cd back
+                npm outdated --quiet
+
+        - script:
+            name: test
+            code: |
+                cd back
+                npm test
+
+        - script:
+            name: build
+            code: |
+                cd back
+                npm run build
+
+        - script:
+            name: prepare the container
+            code: |
+                mv ./back/lib ./lib
+                mv ./back/package.json ./package.json
+                ls -A1 | grep -v 'lib\|package.json\|wercker.yml' | xargs rm -rfv
+                npm install --quiet --production && npm list --depth 0  --quiet
+
+
+
+back-push-container:
+
+    steps:
+
+        - script:
+            name: ls
+            code: |
+                ls -l .
+                echo "node_modules :"
+                ls -l node_modules
+                echo "lib :"
+                find ./lib
+
+        - script:
+            name: prepare image tag
+            code: |
+                export IMAGE_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH+'-'+require('./package.json').version+'-'+(new Date()).toISOString().slice(0,-5).replace(/[:-]/g,'_')+'-'+process.env.WERCKER_GIT_COMMIT.slice(0,7))")
+                echo $IMAGE_TAG
+                echo $IMAGE_TAG >> image_tag
+
+        - internal/docker-push:
+            name: push srv-core
+            repository: $GCR_REPOSITORY
+            registry: https://gcr.io
+            username : _json_key
+            password: $GCR_JSON_KEY_FILE
+            tag: $IMAGE_TAG
+            working-dir: /pipeline/source
+            cmd: npm run start

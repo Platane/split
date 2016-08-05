@@ -1,14 +1,12 @@
 {
     "name": "split-back",
     "version": "0.0.1",
-
     "dependencies": {
-        "gcloud" : "^0.37.0"
+        "gcloud": "^0.37.0"
     },
     "devDependencies": {
         "expect": "1.x",
         "mocha": "^3.0.0",
-
         "babel-register": "6.x",
         "babel-polyfill": "6.x",
         "babel-core": "6.x",
@@ -18,10 +16,11 @@
         "babel-preset-stage-1": "6.x"
     },
     "scripts": {
+        "start:dev"                 : "node -e \"require('babel-register');require('./src/index')(require('./src/config'))\"",
+        "start"                     : "node -e \"require('./lib/index')(require('./lib/config'))\"",
 
-        "start:dev"     : "node -e \"require('babel-register');require('./src/index')(require('./src/config'))\"",
-        "start:inspect" : "node-n --inspect --debug-brk -e \"require('babel-register');require('./src/index')(require('./src/config'))\"",
+        "build"                     : "rm -rf lib && babel --out-dir lib --ignore node_modules/**/*.js,script/*.js ./src",
 
-        "test"          : "env NODE_ENV=\"test\" mocha --compilers js:babel-register ./test/index.js"
+        "test"                      : "mocha --compilers js:babel-register ./test/index.js"
     }
 }
