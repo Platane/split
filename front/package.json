@@ -1,0 +1,47 @@
+{
+    "name": "split-client",
+    "version": "0.1.0",
+
+    "dependencies": {
+        "refinery-js": "^0.4",
+        "refinery-tools": "^0.4",
+        "react" : "^15.0",
+        "react-dom" : "^15.0",
+        "react-motion" : "0.4.x",
+        "react-flippity" : "^0.3"
+    },
+
+    "devDependencies" : {
+        "expect": "^1.20",
+        "mocha": "^3.0.0",
+        "webpack" : "1.x",
+        "webpack-dev-server" : "1.x",
+        "html-minify-loader" : "^1.1.0",
+        "file-loader" : "^0.9.0",
+        "style-loader" : "0.13.x",
+        "css-loader" : "0.23.x",
+        "html-loader" : "0.4.x",
+        "postcss-loader" : "^0.9.0",
+        "autoprefixer" : "^6.3.6",
+        "babel-loader" : "6.x",
+        "babel-register" : "6.x",
+        "babel-polyfill" : "6.x",
+        "babel-core" : "6.x",
+        "babel-cli" : "6.x",
+        "babel-preset-es2015": "6.x",
+        "babel-preset-react": "6.x",
+        "babel-preset-stage-1": "6.x",
+        "babel-plugin-transform-runtime": "6.x"
+    },
+
+    "scripts": {
+
+        "start"             : "webpack-dev-server --port 9002 --content-base ./ -d",
+
+        "test:functional"   : "mocha --compilers js:babel-register --timeout 3000 test/functional/index.js",
+
+        "build"             : "rm -r -f -d dist/ && env NODE_ENV=production webpack && npm run inlineLoader && rm ./webpack-stats.json",
+
+        "inlineLoader"      : "node ./script/inlineLoader.js && rm dist/loader*.js"
+    }
+}
