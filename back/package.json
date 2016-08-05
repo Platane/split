@@ -7,7 +7,7 @@
     },
     "devDependencies": {
         "expect": "1.x",
-        "mocha": "2.5",
+        "mocha": "^3.0.0",
 
         "babel-register": "6.x",
         "babel-polyfill": "6.x",
