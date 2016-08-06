@@ -6,7 +6,7 @@ import fragment         from 'fragment'
 init(
     fragment,
     {
-        'comm'              : require('system/comm')( config.comm ),
-        'ui'                : require('system/ui')( config.ui ),
+        'http'              : require('service/http')( config.http ),
+        'ui'                : require('service/ui')( config.ui ),
     }
 )

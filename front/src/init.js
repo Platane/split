@@ -3,7 +3,7 @@ import {create}         from 'refinery-js'
 
 module.exports = ( fragment, serviceInit ) => {
 
-    const store = create( fragment )
+    const store = { ...create( fragment ), ...fragment }
 
     const services = {}
 
@@ -19,6 +19,8 @@ module.exports = ( fragment, serviceInit ) => {
             Object.keys( services )
                 .map( name => services[ name ] && services[ name ].start && services[ name ].start( services ) )
         )
+
+        .then( () => store.dispatch({ type:'ready' }) )
 
         .then( () => ({store,services}) )
 

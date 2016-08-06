@@ -1,5 +1,4 @@
-require('file?name=index.html!index.html')
-require('./style/main.css')
+require('file?name=index.html!./index.html')
 
 const jsFile = 'app.js'
 const pathName = process.env.PATHNAME || '/'

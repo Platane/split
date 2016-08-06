@@ -6,16 +6,9 @@ const autoprefixer = require('autoprefixer')
 module.exports = {
 
     entry: {
-        'app'       : [
-            ...(
-                process.env.NODE_ENV == 'production'
-                    ? []
-                    : ['./web_modules/loader.devTool.js']
-            ),
-            './web_modules/index.js',
-        ],
+        'app'       : './src/app.js',
 
-        'loader'    : './web_modules/loader.js',
+        'loader'    : './src/loader.js',
     },
 
     output: {
@@ -42,7 +35,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 loader: 'style!css?modules&importLoaders=1&localIdentName=[hash:base64:6]!postcss',
-            }
+            },
 
             {
                 test: /\.json$/,
