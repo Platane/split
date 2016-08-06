@@ -86,7 +86,7 @@ back-deploy:
             packages: openssh-client
 
         - add-to-known_hosts:
-            hostname: 104.197.252.129
+            hostname: $HOST
 
         - script:
             name: create identity file
@@ -98,7 +98,7 @@ back-deploy:
 
         - script:
             name: kill docker container
-            code: ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no 104.197.252.129 docker rm -f $(docker ps -a -q) 2> /dev/null
+            code: ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $HOST docker rm -f $(docker ps -a -q) 2> /dev/null
 
         - script:
             name: clean up identity file
