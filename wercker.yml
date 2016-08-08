@@ -58,6 +58,7 @@ back-push-container:
                 export IMAGE_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH+'-'+require('./package.json').version+'-'+(new Date()).toISOString().slice(0,-5).replace(/[:-]/g,'_')+'-'+process.env.WERCKER_GIT_COMMIT.slice(0,7))")
                 echo $IMAGE_TAG
                 echo $IMAGE_TAG >> image_tag
+                export IMAGE_MAIN_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH == 'master' ? 'lastest' : 'lastest:'+process.env.WERCKER_GIT_BRANCH )"
 
         - internal/docker-push:
             name: push docker image to gcr
@@ -66,6 +67,16 @@ back-push-container:
             username : _json_key
             password: $GCR_JSON_KEY_FILE
             tag: $IMAGE_TAG
+            working-dir: /pipeline/source
+            cmd: npm run start
+
+        - internal/docker-push:
+            name: push docker image to gcr with last tag
+            repository: $GCR_REPOSITORY
+            registry: https://gcr.io
+            username : _json_key
+            password: $GCR_JSON_KEY_FILE
+            tag: $IMAGE_MAIN_TAG
             working-dir: /pipeline/source
             cmd: npm run start
 
@@ -83,7 +94,7 @@ back-push-container:
             name: push docker image to hub.docker with last tag
             username: $DOCKER_HUB_USERNAME
             password: $DOCKER_HUB_PASSWORD
-            tag: last
+            tag: $IMAGE_MAIN_TAG
             repository: platane/split-back
             registry: https://registry.hub.docker.com
             working-dir: /pipeline/source
