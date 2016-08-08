@@ -12,11 +12,12 @@ const init = (config={}) =>
 
             initHandler( services )
 
+                .then( () => debug('ready') )
+                
                 .then( () => services )
 
         )
 
-        .then( () => debug('ready') )
 
         .catch( err => {
 
