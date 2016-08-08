@@ -83,6 +83,7 @@ back-deploy:
                 echo $IMAGE_TAG
 
         - install-packages:
+            name: ensure ssh is available
             packages: openssh-client
 
         - add-to-known_hosts:
@@ -100,8 +101,8 @@ back-deploy:
         - script:
             name: kill and restart docker container
             code: |
-                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null'
-                ssh -i ./key -l $SSH_USER -v $HOST "docker login -e 123@23.com -u _json_key -p $GCR_JSON_KEY_FILE https://gcr.io"
+                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null ; echo "ok"'
+                ssh -i ./key -l $SSH_USER -v $HOST "docker login -e 123@23.com -u _json_key -p \'$GCR_JSON_KEY_FILE https://gcr.io\'"
                 ssh -i ./key -l $SSH_USER -v $HOST "docker pull $GCR_REPOSITORY:$(cat image_tag)""
 
 
