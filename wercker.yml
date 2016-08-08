@@ -92,13 +92,15 @@ back-deploy:
             name: create identity file
             code: |
                 echo $SSH_PRIVATE > ./key
+                chmod 600 ./key
 
         - add-ssh-key:
             keyname: SSH
 
         - script:
             name: kill docker container
-            code: ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -v $HOST ls
+            code: |
+                ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -v $HOST ls
 
         - script:
             name: clean up identity file
