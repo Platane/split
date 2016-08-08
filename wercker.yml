@@ -98,11 +98,15 @@ back-deploy:
             keyname: SSH
 
         - script:
-            name: kill docker container
+            name: kill and restart docker container
             code: |
-                ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -v $HOST 'docker rm -f $(docker ps -a -q)'
+                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) && docker login -e 123@23.com -u _json_key -p $$GCR_JSON_KEY_FILE https://gcr.io && docker pull $GCR_REPOSITORY:$(cat image_tag)'
+
 
         - script:
             name: clean up identity file
             code: |
                 rm ./key
+
+
+gcr.io/carbon-segment-138923/back:master-0.0.1-2016_08_08T11_53_40-1f9ffc4
