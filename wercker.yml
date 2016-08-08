@@ -100,7 +100,7 @@ back-deploy:
         - script:
             name: kill docker container
             code: |
-                ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -v $HOST ls
+                ssh -i ./key -l $SSH_USER -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -v $HOST "docker rm -f $(docker ps -a -q)"
 
         - script:
             name: clean up identity file
