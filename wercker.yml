@@ -58,7 +58,7 @@ back-push-container:
                 export IMAGE_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH+'-'+require('./package.json').version+'-'+(new Date()).toISOString().slice(0,-5).replace(/[:-]/g,'_')+'-'+process.env.WERCKER_GIT_COMMIT.slice(0,7))")
                 echo $IMAGE_TAG
                 echo $IMAGE_TAG >> image_tag
-                export IMAGE_MAIN_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH == 'master' ? 'latest' : 'latest-'+process.env.WERCKER_GIT_BRANCH )"
+                export IMAGE_MAIN_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH == 'master' ? 'latest' : 'latest-'+process.env.WERCKER_GIT_BRANCH)")
 
         - internal/docker-push:
             name: push docker image to gcr
