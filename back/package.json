@@ -2,11 +2,11 @@
     "name": "split-back",
     "version": "0.0.1",
     "dependencies": {
-        "gcloud": "^0.37.0"
+        "gcloud": "^0.37.0",
+        "debug": "^2.2.0"
     },
     "devDependencies": {
         "expect": "1.x",
-        "debug": "^2.2.0",
         "mocha": "^3.0.0",
         "babel-register": "6.x",
         "babel-polyfill": "6.x",

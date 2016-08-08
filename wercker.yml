@@ -60,7 +60,7 @@ back-push-container:
                 echo $IMAGE_TAG >> image_tag
 
         - internal/docker-push:
-            name: push srv-core
+            name: push docker image to gcr
             repository: $GCR_REPOSITORY
             registry: https://gcr.io
             username : _json_key
@@ -75,12 +75,6 @@ back-deploy:
     box: ubuntu:latest
 
     steps:
-
-        - script:
-            name: image tag
-            code: |
-                export IMAGE_TAG=$(cat image_tag)
-                echo $IMAGE_TAG
 
         - install-packages:
             name: ensure ssh is available
@@ -101,9 +95,9 @@ back-deploy:
         - script:
             name: kill and restart docker container
             code: |
-                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null ; echo "ok"'
-                ssh -i ./key -l $SSH_USER -v $HOST "echo '$GCR_JSON_KEY_FILE' > ~/keyfile"
-                ssh -i ./key -l $SSH_USER -v $HOST "docker login -e 123@23.com -u _json_key -p '$GCR_JSON_KEY_FILE' https://gcr.io"
+                ssh -i ./key -l $SSH_USER $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null ; echo "ok"'
+                ssh -i ./key -l $SSH_USER $HOST "docker login -e 123@23.com -u _json_key -p '$GCR_JSON_KEY_FILE' https://gcr.io"
+                ssh -i ./key -l $SSH_USER -v $HOST "cat /home/wercker/.docker/config.json"
                 ssh -i ./key -l $SSH_USER -v $HOST "docker pull $GCR_REPOSITORY:$(cat image_tag)"
                 ssh -i ./key -l $SSH_USER -v $HOST "docker run -d $GCR_REPOSITORY:$(cat image_tag)"
 
