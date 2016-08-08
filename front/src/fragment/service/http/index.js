@@ -1,5 +1,5 @@
 
-import {request as room} from 'fragment/room'
+import {request as room} from 'fragment/room/meta'
 
 const required = ( ...args ) =>
     [].concat( ...args.slice( 0, required.dependencies.length ) )

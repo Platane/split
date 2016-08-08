@@ -34,7 +34,7 @@ module.exports = ( options = {} ) =>
 
             next && request({ ...options, ...next })
                 .then( res => store.dispatch({ type: next.resType || 'success-request', payload: res, meta: next.meta  }) )
-                .then( error => store.dispatch({ type: 'fail-request', payload: { error }, meta: next.meta  }) )
+                .catch( error => store.dispatch({ type: 'fail-request', payload: { error }, meta: next.meta  }) )
 
             next && store.dispatch({ type: 'start-request', meta: next.meta  })
         })

@@ -64,6 +64,7 @@ module.exports = {
             'process.env': {
                 NODE_ENV        : 'NODE_ENV'        in process.env ? `'${ process.env.NODE_ENV          }'` : `null`,
                 API_HOST        : 'API_HOST'        in process.env ? `'${ process.env.API_HOST          }'` : `null`,
+                API_PORT        : 'API_PORT'        in process.env ? `'${ process.env.API_PORT          }'` : `null`,
             },
         }),
 
