@@ -79,6 +79,16 @@ back-push-container:
             working-dir: /pipeline/source
             cmd: npm run start
 
+        - internal/docker-push:
+            name: push docker image to hub.docker with last tag
+            username: $DOCKER_HUB_USERNAME
+            password: $DOCKER_HUB_PASSWORD
+            tag: last
+            repository: platane/split-back
+            registry: https://registry.hub.docker.com
+            working-dir: /pipeline/source
+            cmd: npm run start
+
 back-deploy:
 
     box: ubuntu:latest
