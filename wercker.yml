@@ -101,8 +101,9 @@ back-deploy:
         - script:
             name: kill and restart docker container
             code: |
-                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null ; docker login -e 1234@5678.com -u oauth2accesstoken -p "$(gcloud auth print-access-token)" https://gcr.io'
-                ssh -i ./key -l $SSH_USER -v $HOST "docker pull $GCR_REPOSITORY:$(cat image_tag)""
+                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null ; echo "ok"'
+                ssh -i ./key -l $SSH_USER -v $HOST 'docker login -e 1234@567.com -u oauth2accesstoken -p "$(gcloud auth print-access-token)" https://gcr.io'
+                ssh -i ./key -l $SSH_USER -v $HOST "docker pull $GCR_REPOSITORY:$(cat image_tag)"
 
 
         - script:
