@@ -100,7 +100,9 @@ back-deploy:
         - script:
             name: kill and restart docker container
             code: |
-                ssh -i ./key -l $SSH_USER -v $HOST 'docker rm -f $(docker ps -a -q) && docker login -e 123@23.com -u _json_key -p $$GCR_JSON_KEY_FILE https://gcr.io && docker pull $GCR_REPOSITORY:$(cat image_tag)'
+                ssh -i ./key -l $SSH_USER $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null'
+                ssh -i ./key -l $SSH_USER $HOST "docker login -e 123@23.com -u _json_key -p $GCR_JSON_KEY_FILE https://gcr.io"
+                ssh -i ./key -l $SSH_USER -v $HOST "docker pull $GCR_REPOSITORY:$(cat image_tag)""
 
 
         - script:
