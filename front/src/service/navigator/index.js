@@ -52,8 +52,6 @@ module.exports = store => {
     if ( typeof location == 'undefined' )
         return
 
-    console.log( store )
-
     store.register( store.service.router.navigable , setUrl )
 
     setUrl( store.getValue( store.service.router.navigable ) )

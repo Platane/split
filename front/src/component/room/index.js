@@ -1,12 +1,12 @@
-import App              from './app'
+import Room             from './room'
 import {connect}        from 'component/abstract/connect'
 
 export default connect(
 
-    ({ service }) => [ service.router.path ]
+    ({ room, expense, user }) => [ room.id, room.name, expense.list, user.list ]
     ,
 
-    ( path ) => ({ path })
+    ( id, name, expense, user ) => ({ ready: !!id, name, expense, user })
     ,
 
     {
@@ -15,5 +15,5 @@ export default connect(
         ,
     },
 
-    App
+    Room
 )

@@ -1,0 +1,16 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.label {
+
+}
+.list{
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}

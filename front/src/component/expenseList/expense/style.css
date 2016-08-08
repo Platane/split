@@ -1,0 +1,16 @@
+.container {
+    width: calc( 100% - 20px );
+    height: 30px;
+    margin: 10px;
+    background: #ddd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+}
+.title {
+}
+
+.volume {
+    margin-left: auto;
+}
