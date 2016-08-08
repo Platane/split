@@ -2,6 +2,8 @@
 import initServices     from './service'
 import initHandler      from './handler'
 
+const debug = require('debug')('split')
+
 const init = (config={}) =>
 
     initServices( config )
@@ -13,6 +15,8 @@ const init = (config={}) =>
                 .then( () => services )
 
         )
+
+        .then( () => debug('ready') )
 
         .catch( err => {
 
