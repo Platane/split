@@ -105,6 +105,7 @@ back-deploy:
                 ssh -i ./key -l $SSH_USER -v $HOST "echo '$GCR_JSON_KEY_FILE' > ~/keyfile"
                 ssh -i ./key -l $SSH_USER -v $HOST "docker login -e 123@23.com -u _json_key -p '$GCR_JSON_KEY_FILE' https://gcr.io"
                 ssh -i ./key -l $SSH_USER -v $HOST "docker pull $GCR_REPOSITORY:$(cat image_tag)"
+                ssh -i ./key -l $SSH_USER -v $HOST "docker run -d $GCR_REPOSITORY:$(cat image_tag)"
 
 
         - script:
