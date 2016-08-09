@@ -127,7 +127,7 @@ back-deploy:
             code: |
                 ssh -i ./key -l $SSH_USER $HOST 'docker rm -f $(docker ps -a -q) 2> /dev/null ; echo "ok"'
                 ssh -i ./key -l $SSH_USER $HOST "echo 'SPLIT_GCLOUD_PRIVATE_KEY=$SPLIT_GCLOUD_PRIVATE_KEY' > ~/envFile && echo 'SPLIT_GCLOUD_MAIL=$SPLIT_GCLOUD_MAIL' >> ~/envFile && echo 'SPLIT_GCLOUD_PROJECTID=$SPLIT_GCLOUD_PROJECTID' >> ~/envFile"
-                ssh -i ./key -l $SSH_USER $HOST "docker pull platane/split-back:$(cat image_tag) && docker run --env-file ~/envFile -p 80:9011 platane/split-back:$(cat image_tag)"
+                ssh -i ./key -l $SSH_USER $HOST "docker pull platane/split-back:$(cat image_tag) && docker run --env-file ~/envFile -p 80:9011 -d platane/split-back:$(cat image_tag)"
 
 
         - script:
