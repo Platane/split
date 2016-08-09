@@ -185,4 +185,4 @@ front-deploy:
             project:  $SPLIT_GCLOUD_PROJECTID
             access_key_id:    $GCS_ACCESS_KEY_ID
             secret_access_key:    $GCS_SECRET_ACCESS_KEY
-            dir:  ./front/dist
+            dir:  ./dist
