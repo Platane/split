@@ -57,6 +57,7 @@ back-push-container:
             code: |
                 export GCR_JSON_KEY_FILE2=$(node -e 'console.log(`{"email":"${process.env.SPLIT_GCLOUD_MAIL}","private_key":"${process.env.SPLIT_GCLOUD_PRIVATE_KEY}"}`)')
                 echo $GCR_JSON_KEY_FILE2
+                echo $GCR_JSON_KEY_FILE
 
         - script:
             name: prepare image tag
@@ -172,7 +173,14 @@ front-build:
 
 
 front-deploy:
+
+    box: ubuntu:latest
+    
     steps:
+
+        - install-packages:
+            name: ensure python is available
+            packages: python
 
         - narinari/gcs-website-deploy:
             bucket:   $GCS_BUCKET
