@@ -53,6 +53,12 @@ back-push-container:
                 find ./lib
 
         - script:
+            name: prepare gcr key file
+            code: |
+                export GCR_JSON_KEY_FILE=$(node -e "console.log(JSON.stringify({email:process.env.SPLIT_GCLOUD_MAIL,private_key:process.env.SPLIT_GCLOUD_PRIVATE_KEY}))")
+
+
+        - script:
             name: prepare image tag
             code: |
                 export IMAGE_TAG=$(node -e "console.log(process.env.WERCKER_GIT_BRANCH+'-'+require('./package.json').version+'-'+(new Date()).toISOString().slice(0,-5).replace(/[:-]/g,'_')+'-'+process.env.WERCKER_GIT_COMMIT.slice(0,7))")
