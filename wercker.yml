@@ -55,7 +55,6 @@ back-push-container:
         - script:
             name: prepare gcr key file
             code: |
-                export GCR_JSON_KEY_FILE=$(node -e "console.log(JSON.stringify({email:process.env.SPLIT_GCLOUD_MAIL,private_key:process.env.SPLIT_GCLOUD_PRIVATE_KEY}))")
 
 
         - script:
