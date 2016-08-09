@@ -56,7 +56,7 @@ back-push-container:
             name: prepare gcr key file
             code: |
                 export GCR_JSON_KEY_FILE=$(node -e "console.log(JSON.stringify({email:process.env.SPLIT_GCLOUD_MAIL,private_key:process.env.SPLIT_GCLOUD_PRIVATE_KEY}).replace(/\\\\n/g,'\\n'))")
-
+                echo $GCR_JSON_KEY_FILE
 
         - script:
             name: prepare image tag
