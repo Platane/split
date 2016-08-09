@@ -1,12 +1,19 @@
 
 import { targetId as roomId } from 'fragment/room/meta'
 
-const path = ( roomId ) =>
-    roomId
-        ? [ 'room', roomId ]
-        : [ 'home' ]
+const panel = action =>
+    action.payload.value
 
-path.dependencies = [ roomId ]
+panel.actions = [ 'app:panel:set' ]
+panel.initValue = ''
+
+
+const path = ( roomId, panel ) =>
+    roomId
+        ? [ 'room', roomId, panel ]
+        : [ 'home', ]
+
+path.dependencies = [ roomId, panel ]
 
 
 const navigable = ( path ) =>
@@ -14,4 +21,4 @@ const navigable = ( path ) =>
 
 navigable.dependencies = [ path ]
 
-module.exports = { path, navigable }
+module.exports = { panel, path, navigable }

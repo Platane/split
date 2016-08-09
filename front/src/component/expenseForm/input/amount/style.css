@@ -1,0 +1,14 @@
+.container {
+
+}
+
+.input{
+    padding: 10px;
+}
+
+.input,
+.input:focus,
+.input:active{
+    border: none !important;
+    outline: none !important;
+}

@@ -10,8 +10,8 @@ export default connect(
     ,
 
     {
-        setRoom : ( dispatch, getValue, props, id ) =>
-            dispatch({ type:'room:set', payload:{ id } })
+        addExpense : ( dispatch, getValue, props, id ) =>
+            dispatch({ type:'app:panel:set', payload:{ value: 'addExpense' } })
         ,
     },
 

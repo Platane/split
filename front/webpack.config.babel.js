@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
+const cssnext = require('postcss-cssnext')
 
 module.exports = {
 
@@ -34,7 +34,9 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                loader: 'style!css?modules&importLoaders=1&localIdentName=[hash:base64:6]!postcss',
+                loader: process.env.NODE_ENV == 'production'
+                    ? 'style!css?modules&importLoaders=1&localIdentName=[hash:base64:6]!postcss'
+                    : 'style!css?modules&importLoaders=1&localIdentName=[folder]-[hash:base64:6]!postcss',
             },
 
             {
@@ -54,7 +56,7 @@ module.exports = {
         },
 
         postcss: () =>
-            [autoprefixer]
+            [ cssnext ]
         ,
     },
 

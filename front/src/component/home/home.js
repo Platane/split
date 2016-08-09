@@ -1,5 +1,7 @@
 import React, {PropTypes, Component} from 'react'
 
+import InputText from 'component/input/text'
+
 import style from './style.css'
 
 const Home = ({ setRoom }) => {
@@ -10,7 +12,7 @@ const Home = ({ setRoom }) => {
     return (
         <div className={ style.container } >
 
-            <input className={ style.input } defaultValue="4785227343855616" onKeyDown={ onKeyDown } />
+            <InputText defaultValue="4785227343855616" onKeyDown={ onKeyDown } />
 
         </div>
     )

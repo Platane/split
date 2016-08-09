@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.topRow{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.date{
+    width: calc( 100% - 40px );
+    margin: 20px;
+    position: relative;
+}

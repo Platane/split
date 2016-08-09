@@ -8,6 +8,6 @@ init(
     {
         'http'              : require('service/http')( config.http ),
         'ui'                : require('service/ui')( config.ui ),
-        'navigator'         : require('service/navigator'),
+        // 'navigator'         : require('service/navigator'),
     }
 )

@@ -16,10 +16,10 @@ const buildUrl = ({path, param}) =>
 
 
 const pushState = url =>
-    typeof history == 'undefined' || history.pushState( {}, '', url )
+    typeof history != 'undefined' && history.pushState( {}, '', url )
 
 const replaceState = url =>
-    typeof history == 'undefined' || history.replaceState( {}, '', url )
+    typeof history != 'undefined' && history.replaceState( {}, '', url )
 
 const setUrl = navigable => {
     const current = parseUrl()
