@@ -50,7 +50,7 @@ module.exports = {
         ],
 
         resolve : {
-            modulesDirectories : ['node_modules', 'web_modules'],
+            modulesDirectories : ['node_modules', 'src'],
         },
 
         postcss: () =>

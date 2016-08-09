@@ -140,3 +140,43 @@ back-deploy:
             name: clean up identity file
             code: |
                 rm ./key
+
+
+front-build:
+    steps:
+
+        - script:
+            name: npm install
+            code: |
+                cd front
+                env NODE_ENV=dev npm install --quiet && npm list --depth 0  --quiet
+
+        - script:
+            name: prepare env var
+            code: |
+                export NODE_ENV=production
+                export API_HOST=$HOST
+                export API_PORT=80
+
+        - script:
+            name: print outdated package
+            code: |
+                cd front
+                npm outdated --quiet
+
+        - script:
+            name: build
+            code: |
+                cd front
+                npm run build
+
+
+front-deploy:
+    steps:
+
+        - narinari/gcs-website-deploy:
+            bucket:   $GCS_BUCKET
+            project:  $SPLIT_GCLOUD_PROJECTID
+            access_key_id:    $GCS_ACCESS_KEY_ID
+            secret_access_key:    $GCS_SECRET_ACCESS_KEY
+            dir:  ./front/dist
