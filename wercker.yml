@@ -6,27 +6,23 @@ back-build:
 
         - script:
             name: npm install
-            code: |
-                cd back
-                env NODE_ENV=dev npm install --quiet && npm list --depth 0  --quiet
+            cwd: back/
+            code: env NODE_ENV=dev npm install --quiet && npm list --depth 0  --quiet
 
         - script:
             name: print outdated package
-            code: |
-                cd back
-                npm outdated --quiet
+            cwd: back/
+            code: npm outdated --quiet
 
         - script:
             name: test
-            code: |
-                cd back
-                npm test
+            cwd: back/
+            code: npm test
 
         - script:
             name: build
-            code: |
-                cd back
-                npm run build
+            cwd: back/
+            code: npm run build
 
         - script:
             name: prepare the container
@@ -146,9 +142,8 @@ front-build:
 
         - script:
             name: npm install
-            code: |
-                cd front
-                env NODE_ENV=dev npm install --quiet && npm list --depth 0  --quiet
+            cwd: front/
+            code: env NODE_ENV=dev npm install --quiet && npm list --depth 0  --quiet
 
         - script:
             name: prepare env var
@@ -159,15 +154,13 @@ front-build:
 
         - script:
             name: print outdated package
-            code: |
-                cd front
-                npm outdated --quiet
+            cwd: front/
+            code: npm outdated --quiet
 
         - script:
             name: build
-            code: |
-                cd front
-                npm run build
+            cwd: front/
+            code: npm run build
 
 
 front-deploy:
@@ -176,7 +169,18 @@ front-deploy:
 
     steps:
 
+        - script:
+            name: prepare .boto file
+            cwd: front/
+            code: |
+                echo "[Credentials]"            > .boto
+                echo "  gs_access_key_id ="     >> .boto
+                echo "  gs_secret_access_key =" >> .boto
+                echo "[GSUtil]"                 >> .boto
+                echo "  default_project_id ="   >> .boto
+
         - narinari/gcs-website-deploy:
+            cwd: front/
             bucket:   $GCS_BUCKET
             project:  $SPLIT_GCLOUD_PROJECTID
             access_key_id:    $GCS_ACCESS_KEY_ID
